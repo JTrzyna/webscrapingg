@@ -26,6 +26,11 @@ namespace WebScrapingg
         {
             string url = urlTextBox.Text;
             string sourceCode = TekstStrony.GetSourceCode(url);
+            int startIndex = sourceCode.IndexOf("<p>");
+            sourceCode = sourceCode.Substring(startIndex, sourceCode.Length - startIndex);
+            startIndex = sourceCode.IndexOf("<p>") + 4;
+            int endIndex = sourceCode.IndexOf("</p>", startIndex);
+            string link = sourceCode.Substring(startIndex, endIndex - startIndex);
             StreamWriter sw = new StreamWriter("website.txt");
             sw.Write(sourceCode);
             sw.Close();
